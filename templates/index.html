@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Sharma | Marvel Stark-Tech & Web-Slinger Portfolio</title>
+    <meta name="description" content="Portfolio of Yash Sharma - 1st Year B.Tech Student at JECRC University. Passionate about Tech, Robotics, Artificial Intelligence, and Coding.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕷️</text></svg>">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        spidey: {
+                            red: '#e23636',
+                            darkred: '#b11313',
+                            blue: '#0e1b38'
+                        },
+                        stark: {
+                            gold: '#f5af19',
+                            darkgold: '#d97706',
+                            red: '#e52d27'
+                        },
+                        arc: {
+                            cyan: '#00f2fe',
+                            glow: 'rgba(0, 242, 254, 0.4)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="marvel-bg-pattern min-h-screen text-slate-100 selection:bg-red-600 selection:text-white">
+
+    <!-- ==========================================================================
+         1. IRON MAN BOOT PRELOADER
+         ========================================================================== -->
+    <div id="ironman-preloader">
+        <div class="arc-reactor-loader">
+            <div class="arc-target-reticle"></div>
+            <div class="arc-ring-outer"></div>
+            <div class="arc-ring-inner"></div>
+            <div class="arc-core"></div>
+        </div>
+
+        <div class="text-center px-4 max-w-lg">
+            <h2 class="font-orbitron text-xl sm:text-2xl font-black tracking-widest text-cyan-400 text-glow-cyan mb-2">
+                STARK INDUSTRIES // JARVIS OS
+            </h2>
+            <div class="flex items-center justify-between text-xs font-mono-stark text-amber-400 mb-2 px-1">
+                <span>SYSTEM DIAGNOSTICS</span>
+                <span id="preloader-progress">0%</span>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-cyan-500/30 mb-4">
+                <div id="preloader-bar" class="h-full bg-gradient-to-r from-cyan-400 via-amber-400 to-red-500 w-0 transition-all duration-100"></div>
+            </div>
+
+            <p id="preloader-log" class="text-xs font-mono-stark text-slate-400 tracking-wider h-6 overflow-hidden">
+                INITIALIZING PROTOCOL: YASH SHARMA...
+            </p>
+
+            <button id="preloader-bypass" class="mt-6 text-xs font-mono-stark text-cyan-400/80 hover:text-cyan-300 tracking-widest border border-cyan-500/30 hover:border-cyan-400 px-4 py-1.5 rounded uppercase transition-colors">
+                [ BYPASS BOOT PROTOCOL ]
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         2. IRON MAN REPULSOR TRANSITION OVERLAY
+         ========================================================================== -->
+    <div id="ironman-transition-overlay" class="hidden"></div>
+
+    <!-- ==========================================================================
+         3. SPIDER-SENSE NOTIFICATION HUD
+         ========================================================================== -->
+    <div id="spidersense-hud" class="hidden">
+        SPIDER-SENSE ACTIVATED!
+    </div>
+
+    <!-- ==========================================================================
+         4. FLOATING HANGING SPIDER-MAN (EASTER EGG)
+         ========================================================================== -->
+    <div class="fixed top-0 right-12 z-30 hidden lg:block hanging-spidey pointer-events-auto cursor-pointer trigger-web-swing" title="Click to trigger Spider-Man Web-Swing!">
+        <svg width="40" height="130" viewBox="0 0 40 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Web Strand -->
+            <line x1="20" y1="0" x2="20" y2="70" stroke="#ffffff" stroke-width="1.8" stroke-dasharray="2 1" />
+            <!-- Upside-down Spider-Man -->
+            <g transform="translate(5, 70)">
+                <!-- Legs hanging up -->
+                <path d="M10 0 L5 15 L15 15 Z" fill="#0f172a" />
+                <path d="M20 0 L25 15 L15 15 Z" fill="#0f172a" />
+                <!-- Torso -->
+                <ellipse cx="15" cy="25" rx="9" ry="12" fill="#e23636" />
+                <ellipse cx="15" cy="25" rx="5" ry="8" fill="#0f172a" />
+                <!-- Head -->
+                <circle cx="15" cy="44" r="8" fill="#e23636" />
+                <!-- Mask Eyes -->
+                <polygon points="11,42 14,45 13,42" fill="#ffffff" stroke="#05070d" stroke-width="1" />
+                <polygon points="19,42 16,45 17,42" fill="#ffffff" stroke="#05070d" stroke-width="1" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- ==========================================================================
+         5. STARK HUD NAVIGATION HEADER
+         ========================================================================== -->
+    <header class="fixed top-0 left-0 w-full z-40 stark-glass border-b border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand / Holographic Logo -->
+            <a href="#hero" class="stark-nav-link flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-full border border-cyan-400 flex items-center justify-center bg-slate-900/80 interactive-arc-reactor" title="Stark Arc-Reactor Core (Click to Overcharge!)">
+                    <div class="w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_12px_#00f2fe] animate-pulse"></div>
+                </div>
+                <div>
+                    <span class="font-orbitron font-black text-lg tracking-wider text-white group-hover:text-cyan-400 transition-colors">
+                        YASH <span class="text-red-500">SHARMA</span>
+                    </span>
+                    <span class="block text-[10px] font-mono-stark text-amber-400 tracking-widest">
+                        JECRC // STARK-OS v4.2
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-7">
+                <a href="#hero" class="stark-nav-link text-sm uppercase tracking-wider text-slate-300 hover:text-cyan-400 active">Home</a>
+                <a href="#about" class="stark-nav-link text-sm uppercase tracking-wider text-slate-300 hover:text-cyan-400">Origin</a>
+                <a href="#skills" class="stark-nav-link text-sm uppercase tracking-wider text-slate-300 hover:text-cyan-400">Arsenal</a>
+                <a href="#projects" class="stark-nav-link text-sm uppercase tracking-wider text-slate-300 hover:text-cyan-400">Projects</a>
+                <a href="#education" class="stark-nav-link text-sm uppercase tracking-wider text-slate-300 hover:text-cyan-400">Education</a>
+                <a href="#contact" class="stark-nav-link text-sm uppercase tracking-wider text-slate-300 hover:text-cyan-400">Uplink</a>
+            </nav>
+
+            <!-- Quick Action Keys & Sound Controls -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <!-- Stark Terminal Trigger Key -->
+                <button class="open-stark-terminal px-3 py-1.5 rounded border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs font-mono-stark hover:border-cyan-400 hover:bg-cyan-900/50 transition-all flex items-center space-x-1.5" title="Press `~` or click to open Stark Terminal">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span>TERMINAL [~]</span>
+                </button>
+
+                <!-- Audio Toggle Button -->
+                <button id="audio-toggle-btn" class="px-3 py-1.5 rounded border border-amber-500/40 bg-amber-950/40 text-amber-300 text-xs font-mono-stark hover:border-amber-400 hover:bg-amber-900/50 transition-all flex items-center space-x-1.5" title="Toggle Marvel Sound FX">
+                    <svg id="audio-toggle-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    <span id="audio-toggle-text">AUDIO: ON</span>
+                </button>
+
+                <!-- Web-Swing Action Key -->
+                <button class="trigger-web-swing px-3 py-1.5 rounded border border-red-500/50 bg-red-950/40 text-red-300 text-xs font-mono-stark hover:border-red-400 hover:bg-red-900/50 transition-all flex items-center space-x-1" title="Press 'S' or click to swing Spider-Man">
+                    <span>🕸️</span>
+                    <span>SWING [S]</span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Hamburger Button -->
+            <div class="flex items-center space-x-3 md:hidden">
+                <button class="open-stark-terminal p-2 text-cyan-400" title="Terminal">
+                    <span class="font-mono-stark text-sm font-bold">[~]</span>
+                </button>
+                <button id="mobile-menu-btn" class="p-2 text-slate-300 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-nav-drawer" class="hidden md:hidden stark-glass border-b border-cyan-500/30 px-4 pt-3 pb-5 space-y-3 font-chakra">
+            <a href="#hero" class="mobile-nav-link block text-sm font-bold tracking-wider text-slate-200 hover:text-cyan-400 py-1">HOME</a>
+            <a href="#about" class="mobile-nav-link block text-sm font-bold tracking-wider text-slate-200 hover:text-cyan-400 py-1">ORIGIN STORY</a>
+            <a href="#skills" class="mobile-nav-link block text-sm font-bold tracking-wider text-slate-200 hover:text-cyan-400 py-1">TECH ARSENAL</a>
+            <a href="#projects" class="mobile-nav-link block text-sm font-bold tracking-wider text-slate-200 hover:text-cyan-400 py-1">PROJECT MATRIX</a>
+            <a href="#education" class="mobile-nav-link block text-sm font-bold tracking-wider text-slate-200 hover:text-cyan-400 py-1">EDUCATION & JECRC</a>
+            <a href="#contact" class="mobile-nav-link block text-sm font-bold tracking-wider text-slate-200 hover:text-cyan-400 py-1">STARK UPLINK (CONTACT)</a>
+            <div class="pt-2 border-t border-slate-700 flex justify-between">
+                <button class="trigger-web-swing text-xs text-red-400 font-mono-stark">🕸️ TRIGGER WEB SWING</button>
+                <button class="open-stark-terminal text-xs text-cyan-400 font-mono-stark">💻 STARK TERMINAL</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         6. HERO SECTION: STARK LABS x WEB-SLINGER
+         ========================================================================== -->
+    <section id="hero" class="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden">
+        <!-- Background Marvel Halftone & Grid Accents -->
+        <div class="absolute inset-0 pointer-events-none opacity-20">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-red-600/30 via-cyan-500/20 to-amber-500/20 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Column: Identity & Bio -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <!-- Protocol Badge -->
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-cyan-500/40 bg-cyan-950/30 text-cyan-300 font-mono-stark text-xs tracking-widest">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                        <span>STARK INDUSTRIES // PETER PARKER PROTOCOL</span>
+                    </div>
+
+                    <!-- Main Name Headline -->
+                    <div>
+                        <h1 class="font-orbitron text-4xl sm:text-6xl xl:text-7xl font-black tracking-tight leading-none text-white">
+                            I'M <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-400 to-cyan-400">YASH SHARMA</span>
+                        </h1>
+                        <!-- Typewriter Dynamic Role -->
+                        <div class="h-10 mt-3 flex items-center justify-center lg:justify-start">
+                            <span class="font-chakra text-lg sm:text-2xl text-cyan-300 font-semibold tracking-wide">
+                                &gt; <span id="typewriter-text" class="border-r-2 border-amber-400 pr-1">B.Tech Student @ JECRC University</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Personal Bio Summary -->
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        1st-year <strong class="text-cyan-300">B.Tech undergraduate at JECRC University</strong> with an insatiable drive for 
+                        <span class="text-red-400 font-semibold">Robotics</span>, 
+                        <span class="text-amber-400 font-semibold">Artificial Intelligence</span>, and 
+                        <span class="text-cyan-400 font-semibold">Full-Stack Coding</span>.
+                        Building innovative hardware-software solutions with the speed of Spider-Man and the engineering vision of Tony Stark.
+                    </p>
+
+                    <!-- Interactive Action Controls -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#projects" class="stark-nav-link btn-spidey px-6 py-3.5 rounded-lg font-chakra font-bold text-sm tracking-wider uppercase flex items-center space-x-2">
+                            <span>EXPLORE PROJECTS</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <a href="#contact" class="stark-nav-link btn-stark px-6 py-3.5 rounded-lg font-chakra font-bold text-sm tracking-wider uppercase flex items-center space-x-2">
+                            <span>STARK UPLINK</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        </a>
+                        <button class="trigger-web-swing btn-arc px-5 py-3.5 rounded-lg font-mono-stark text-xs tracking-wider uppercase flex items-center space-x-1.5" title="Trigger web-swing">
+                            <span>🕸️</span>
+                            <span>SWING SPIDEY [S]</span>
+                        </button>
+                    </div>
+
+                    <!-- Stark Telemetry Banner -->
+                    <div class="pt-4 grid grid-cols-3 gap-4 border-t border-slate-800 max-w-lg font-mono-stark text-xs">
+                        <div class="stark-card p-3 rounded text-center">
+                            <span class="text-slate-400 block text-[10px]">TOTAL VISITORS</span>
+                            <span id="visitor-count" class="text-cyan-400 text-lg font-bold">--</span>
+                        </div>
+                        <div class="stark-card p-3 rounded text-center interactive-arc-reactor" title="Click to boost Arc Power!">
+                            <span class="text-slate-400 block text-[10px]">ARC POWER (kW)</span>
+                            <span id="arc-likes-counter" class="text-amber-400 text-lg font-bold">--</span>
+                        </div>
+                        <div class="stark-card p-3 rounded text-center">
+                            <span class="text-slate-400 block text-[10px]">COLLEGE CAMPUS</span>
+                            <span class="text-red-400 text-sm font-bold">JECRC UNIV</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Column: 3D Holographic Stark ID Badge -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="stark-card rounded-2xl p-6 sm:p-8 w-full max-w-md border-cyan-500/30 glow-arc relative group">
+                        <!-- Holographic Scanline Overlay -->
+                        <div class="absolute inset-0 terminal-scanlines opacity-40 pointer-events-none"></div>
+
+                        <!-- Card Header -->
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+                                <span class="text-xs font-mono-stark text-cyan-400">AVENGERS INITIATIVE // R&amp;D</span>
+                            </div>
+                            <span class="text-xs font-mono-stark text-amber-400">CLASS: 2025-29</span>
+                        </div>
+
+                        <!-- Avatar & Spider-Man / Iron Man Fusion Graphic -->
+                        <div class="my-6 relative flex justify-center">
+                            <div class="w-40 h-40 rounded-full border-2 border-cyan-400 p-1.5 relative group-hover:scale-105 transition-transform duration-500">
+                                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden relative">
+                                    <!-- Stylized Marvel Hero SVG Avatar -->
+                                    <svg viewBox="0 0 100 100" class="w-28 h-28">
+                                        <!-- Spider-Man Mask -->
+                                        <ellipse cx="50" cy="50" rx="35" ry="42" fill="#e23636" stroke="#b11313" stroke-width="2"/>
+                                        <!-- Web Patterns -->
+                                        <path d="M50 8 L50 92 M15 50 L85 50" stroke="#7f1d1d" stroke-width="1.2"/>
+                                        <path d="M25 25 Q50 40 75 25 M25 75 Q50 60 75 75" stroke="#7f1d1d" stroke-width="1.2" fill="none"/>
+                                        <!-- Iron Man Nanotech Glow Overlay on Left Eye -->
+                                        <path d="M30 40 Q40 38 46 50 Q36 54 30 40" fill="#00f2fe" stroke="#ffffff" stroke-width="1.5" class="animate-pulse"/>
+                                        <!-- Spider-Man Classic Right Eye -->
+                                        <path d="M70 40 Q60 38 54 50 Q64 54 70 40" fill="#ffffff" stroke="#05070d" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <!-- Arc Reactor Spinner around badge -->
+                                <div class="arc-ring-outer opacity-50"></div>
+                            </div>
+                        </div>
+
+                        <!-- Badge Metadata -->
+                        <div class="space-y-3 font-mono-stark text-xs">
+                            <div class="flex justify-between py-1 border-b border-slate-800/80">
+                                <span class="text-slate-400">OPERATOR:</span>
+                                <span class="text-white font-bold">YASH SHARMA</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-slate-800/80">
+                                <span class="text-slate-400">ROLE:</span>
+                                <span class="text-cyan-300">1st Year B.Tech Student</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-slate-800/80">
+                                <span class="text-slate-400">ACADEMIC HOME:</span>
+                                <span class="text-amber-400 font-semibold">JECRC University</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-slate-800/80">
+                                <span class="text-slate-400">CORE FOCUS:</span>
+                                <span class="text-red-400">Robotics, AI, Systems Coding</span>
+                            </div>
+                            <div class="flex justify-between py-1">
+                                <span class="text-slate-400">STATUS:</span>
+                                <span class="text-emerald-400 flex items-center">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>
+                                    ACTIVE &amp; BUILDING
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Overcharge CTA -->
+                        <div class="mt-6 pt-4 border-t border-slate-800 text-center">
+                            <button class="interactive-arc-reactor text-xs font-mono-stark text-cyan-400 hover:text-cyan-300 uppercase tracking-wider flex items-center justify-center mx-auto space-x-1.5">
+                                <span>⚡</span>
+                                <span>CLICK TO OVERCHARGE ARC REACTOR</span>
+                                <span>⚡</span>
+                            </button>
+                            <span id="arc-tooltip" class="text-[10px] text-amber-400 opacity-0 transition-opacity block mt-1">POWER BOOSTED!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. ORIGIN STORY (ABOUT ME) SECTION
+         ========================================================================== -->
+    <section id="about" class="py-24 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Title -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-mono-stark text-xs tracking-widest text-red-400 uppercase">DOSSIER // THE GENESIS</span>
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-black text-white mt-2">
+                    THE ORIGIN <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-400">STORY</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-3 font-chakra">
+                    "With great curiosity comes great engineering power." The journey of Yash Sharma.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <!-- Left Column: Biography Narrative -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="stark-card p-6 sm:p-8 rounded-xl border-l-4 border-l-red-500">
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3 flex items-center">
+                            <span class="mr-2 text-red-500">🕷️</span>
+                            Student by Day, Tech Innovator by Night
+                        </h3>
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base mb-4">
+                            Hello! I am <strong class="text-white">Yash Sharma</strong>, currently a 
+                            <span class="text-cyan-300 font-semibold">1st-year Bachelor of Technology (B.Tech)</span> student at 
+                            <strong class="text-amber-400">JECRC University, Jaipur</strong>.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base mb-4">
+                            From tinkering with microcontrollers to training computer vision models, my passion lies at the intersection 
+                            of <span class="text-red-400 font-semibold">Robotics &amp; Mechatronics</span>, 
+                            <span class="text-cyan-400 font-semibold">Artificial Intelligence</span>, and 
+                            <span class="text-amber-400 font-semibold">Creative Software Development</span>.
+                            Like Peter Parker experimenting in Tony Stark's lab, I treat every line of code as an opportunity to build tools that solve real-world problems.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                            I thrive in collaborative hackathons, algorithmic problem solving, and designing fluid digital interfaces that combine clean architecture with futuristic aesthetics.
+                        </p>
+                    </div>
+
+                    <!-- Core Tenets & Pillars -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="stark-card p-5 rounded-lg border-cyan-500/20">
+                            <div class="text-2xl mb-2">🤖</div>
+                            <h4 class="font-chakra font-bold text-white text-base">Robotics &amp; Embedded</h4>
+                            <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                                Hands-on prototyping with Arduino, ESP32, motor drivers, sensor arrays, and autonomous navigation logic.
+                            </p>
+                        </div>
+                        <div class="stark-card p-5 rounded-lg border-amber-500/20">
+                            <div class="text-2xl mb-2">🧠</div>
+                            <h4 class="font-chakra font-bold text-white text-base">Artificial Intelligence</h4>
+                            <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                                Exploring computer vision, neural architectures, OpenCV tracking, and intelligent automation systems.
+                            </p>
+                        </div>
+                        <div class="stark-card p-5 rounded-lg border-red-500/20">
+                            <div class="text-2xl mb-2">💻</div>
+                            <h4 class="font-chakra font-bold text-white text-base">Systems &amp; Full-Stack</h4>
+                            <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                                Writing high performance C/C++, Python backends, and responsive, interactive modern web apps.
+                            </p>
+                        </div>
+                        <div class="stark-card p-5 rounded-lg border-emerald-500/20">
+                            <div class="text-2xl mb-2">⚡</div>
+                            <h4 class="font-chakra font-bold text-white text-base">Continuous Learning</h4>
+                            <p class="text-slate-400 text-xs mt-1 leading-relaxed">
+                                Relentlessly upskilling through university coursework, engineering clubs, and open-source contributions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Stark Diagnostics & Stats Matrix -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="stark-card p-6 sm:p-8 rounded-xl border-cyan-500/30">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                            <h3 class="font-mono-stark text-xs text-cyan-400 tracking-wider">ACADEMIC &amp; DEV METRICS</h3>
+                            <span class="text-xs font-mono-stark text-emerald-400">100% HEALTH</span>
+                        </div>
+
+                        <div class="space-y-4 mt-5">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono-stark mb-1">
+                                    <span class="text-slate-300">Robotics &amp; Hardware Circuitry</span>
+                                    <span class="text-amber-400">85%</span>
+                                </div>
+                                <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-400 w-[85%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono-stark mb-1">
+                                    <span class="text-slate-300">AI, ML &amp; Computer Vision</span>
+                                    <span class="text-cyan-400">80%</span>
+                                </div>
+                                <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 w-[80%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono-stark mb-1">
+                                    <span class="text-slate-300">Python &amp; C/C++ Programming</span>
+                                    <span class="text-red-400">90%</span>
+                                </div>
+                                <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-red-400 w-[90%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono-stark mb-1">
+                                    <span class="text-slate-300">Modern Web &amp; REST APIs</span>
+                                    <span class="text-emerald-400">88%</span>
+                                </div>
+                                <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-400 w-[88%]"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stark Core Status Box -->
+                        <div class="mt-6 p-4 rounded-lg bg-slate-950/80 border border-slate-800 font-mono-stark text-xs space-y-2">
+                            <div class="flex justify-between text-slate-400">
+                                <span>AFFILIATION:</span>
+                                <span class="text-white">JECRC University</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>YEAR:</span>
+                                <span class="text-cyan-300">1st Year (CSE/Tech)</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>LOCATION:</span>
+                                <span class="text-amber-400">Jaipur, India</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>MOTTO:</span>
+                                <span class="text-red-400">Invent. Code. Protect.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         8. TECH ARSENAL (SKILLS) SECTION
+         ========================================================================== -->
+    <section id="skills" class="py-24 relative border-t border-slate-800/60 bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-mono-stark text-xs tracking-widest text-cyan-400 uppercase">SUIT UPGRADES &amp; LAB ARSENAL</span>
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-black text-white mt-2">
+                    TECHNICAL <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-amber-400 to-red-500">ARSENAL</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-3 font-chakra">
+                    Equipped with Stark Industries engineering and Spider-Man adaptability.
+                </p>
+            </div>
+
+            <!-- Arsenal Categories Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Arsenal 1: Languages -->
+                <div class="stark-card p-6 rounded-xl border-cyan-500/20 group hover:border-cyan-400">
+                    <div class="w-12 h-12 rounded-lg bg-cyan-950/50 border border-cyan-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        💻
+                    </div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-2">Languages</h3>
+                    <p class="text-slate-400 text-xs mb-4">Core languages used for systems programming and algorithmic logic.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-cyan-300 border border-cyan-500/30 text-xs font-mono-stark">Python</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-cyan-300 border border-cyan-500/30 text-xs font-mono-stark">C / C++</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-cyan-300 border border-cyan-500/30 text-xs font-mono-stark">JavaScript</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-cyan-300 border border-cyan-500/30 text-xs font-mono-stark">HTML5 / CSS3</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-cyan-300 border border-cyan-500/30 text-xs font-mono-stark">SQL</span>
+                    </div>
+                </div>
+
+                <!-- Arsenal 2: Robotics & Hardware -->
+                <div class="stark-card p-6 rounded-xl border-red-500/20 group hover:border-red-400">
+                    <div class="w-12 h-12 rounded-lg bg-red-950/50 border border-red-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        🤖
+                    </div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-2">Robotics &amp; IoT</h3>
+                    <p class="text-slate-400 text-xs mb-4">Microcontrollers, sensor fusion, actuators and mechatronics.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-red-300 border border-red-500/30 text-xs font-mono-stark">Arduino Uno/Nano</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-red-300 border border-red-500/30 text-xs font-mono-stark">ESP32 / Wi-Fi</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-red-300 border border-red-500/30 text-xs font-mono-stark">Ultrasonic &amp; IR</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-red-300 border border-red-500/30 text-xs font-mono-stark">Motor Drivers</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-red-300 border border-red-500/30 text-xs font-mono-stark">Telemetry Comms</span>
+                    </div>
+                </div>
+
+                <!-- Arsenal 3: AI & Vision -->
+                <div class="stark-card p-6 rounded-xl border-amber-500/20 group hover:border-amber-400">
+                    <div class="w-12 h-12 rounded-lg bg-amber-950/50 border border-amber-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        👁️
+                    </div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-2">AI &amp; Vision</h3>
+                    <p class="text-slate-400 text-xs mb-4">Intelligent algorithms, perception, object tracking &amp; neural models.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-amber-300 border border-amber-500/30 text-xs font-mono-stark">OpenCV</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-amber-300 border border-amber-500/30 text-xs font-mono-stark">Computer Vision</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-amber-300 border border-amber-500/30 text-xs font-mono-stark">Object Tracking</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-amber-300 border border-amber-500/30 text-xs font-mono-stark">Machine Learning</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-amber-300 border border-amber-500/30 text-xs font-mono-stark">NumPy / SciPy</span>
+                    </div>
+                </div>
+
+                <!-- Arsenal 4: Web & Tools -->
+                <div class="stark-card p-6 rounded-xl border-emerald-500/20 group hover:border-emerald-400">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-950/50 border border-emerald-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        🛠️
+                    </div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-2">Web &amp; Dev Tools</h3>
+                    <p class="text-slate-400 text-xs mb-4">Modern frontend, backends, version control and Linux environments.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-emerald-300 border border-emerald-500/30 text-xs font-mono-stark">React &amp; Flask</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-emerald-300 border border-emerald-500/30 text-xs font-mono-stark">Node.js / Express</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-emerald-300 border border-emerald-500/30 text-xs font-mono-stark">Git &amp; GitHub</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-emerald-300 border border-emerald-500/30 text-xs font-mono-stark">Linux / Terminal</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-emerald-300 border border-emerald-500/30 text-xs font-mono-stark">Tailwind CSS</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         9. PROJECT MATRIX (FEATURED PROJECTS)
+         ========================================================================== -->
+    <section id="projects" class="py-24 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="font-mono-stark text-xs tracking-widest text-amber-400 uppercase">STARK LABS BLUEPRINTS</span>
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-black text-white mt-2">
+                    PROJECT <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-400 to-cyan-400">MATRIX</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-3 font-chakra">
+                    Explore real-world engineering innovations built by Yash Sharma.
+                </p>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 font-mono-stark text-xs">
+                <button class="project-filter-btn px-4 py-2 rounded-full border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 hover:border-cyan-400 active transition-all" data-category="all">
+                    [ ALL BLUEPRINTS ]
+                </button>
+                <button class="project-filter-btn px-4 py-2 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-400 hover:text-red-300 transition-all" data-category="robotics">
+                    [ ROBOTICS &amp; HARDWARE ]
+                </button>
+                <button class="project-filter-btn px-4 py-2 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:border-cyan-400 hover:text-cyan-300 transition-all" data-category="ai">
+                    [ AI &amp; VISION ]
+                </button>
+                <button class="project-filter-btn px-4 py-2 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-400 hover:text-amber-300 transition-all" data-category="web">
+                    [ WEB &amp; SYSTEMS ]
+                </button>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Stark-Vision RoboEye -->
+                <div class="stark-card project-card flex flex-col justify-between rounded-xl p-6 border-cyan-500/30 group" data-category="ai">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/30 text-[10px] font-mono-stark">
+                                AI &amp; COMPUTER VISION
+                            </span>
+                            <!-- Upvote Like Button -->
+                            <button class="project-like-btn flex items-center space-x-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-red-400 hover:border-red-400 transition-all text-xs font-mono-stark" data-project="stark-vision" title="Upvote this project">
+                                <span>❤️</span>
+                                <span class="project-like-count">28</span>
+                            </button>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                            Stark-Vision AI / RoboEye
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Autonomous object detection and real-time color tracking module powered by OpenCV and Python. Integrates camera feeds to guide robotic actuator coordinates.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Python</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">OpenCV</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">NumPy</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Kinematics</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex justify-between items-center">
+                        <a href="https://github.com/07yashsharma" target="_blank" rel="noopener noreferrer" class="text-xs font-mono-stark text-cyan-400 hover:text-cyan-300 flex items-center">
+                            VIEW REPOSITORY
+                            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <span class="text-[10px] font-mono-stark text-emerald-400">OPERATIONAL</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: AeroSense IoT Platform -->
+                <div class="stark-card project-card flex flex-col justify-between rounded-xl p-6 border-red-500/30 group" data-category="robotics">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded bg-red-950 text-red-300 border border-red-500/30 text-[10px] font-mono-stark">
+                                ROBOTICS &amp; EMBEDDED
+                            </span>
+                            <button class="project-like-btn flex items-center space-x-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-red-400 hover:border-red-400 transition-all text-xs font-mono-stark" data-project="aerosense-iot" title="Upvote this project">
+                                <span>❤️</span>
+                                <span class="project-like-count">34</span>
+                            </button>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white group-hover:text-red-400 transition-colors">
+                            AeroSense IoT Drone Station
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            ESP32-based multi-sensor environmental telemetry unit. Transmits barometric, temperature, and obstacle proximity packets wirelessly over Wi-Fi/HTTP.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">ESP32</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">C++ / Arduino</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Sensors</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">IoT Telemetry</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex justify-between items-center">
+                        <a href="https://github.com/07yashsharma" target="_blank" rel="noopener noreferrer" class="text-xs font-mono-stark text-red-400 hover:text-red-300 flex items-center">
+                            VIEW REPOSITORY
+                            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <span class="text-[10px] font-mono-stark text-emerald-400">HARDWARE TESTED</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Web-Slinger Algorithm Visualizer -->
+                <div class="stark-card project-card flex flex-col justify-between rounded-xl p-6 border-amber-500/30 group" data-category="web">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded bg-amber-950 text-amber-300 border border-amber-500/30 text-[10px] font-mono-stark">
+                                ALGORITHMS &amp; WEB
+                            </span>
+                            <button class="project-like-btn flex items-center space-x-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-red-400 hover:border-red-400 transition-all text-xs font-mono-stark" data-project="web-slinger-visualizer" title="Upvote this project">
+                                <span>❤️</span>
+                                <span class="project-like-count">41</span>
+                            </button>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
+                            Web-Slinger Path Visualizer
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Interactive Manhattan graph traversal engine. Visualizes Dijkstra, A*, and Breadth-First Search navigating across skyscrapers using Spider-Man web routes.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">JavaScript</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Graph Theory</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">A* Search</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">HTML5 Canvas</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex justify-between items-center">
+                        <a href="https://github.com/07yashsharma" target="_blank" rel="noopener noreferrer" class="text-xs font-mono-stark text-amber-400 hover:text-amber-300 flex items-center">
+                            VIEW REPOSITORY
+                            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <span class="text-[10px] font-mono-stark text-cyan-400">INTERACTIVE</span>
+                    </div>
+                </div>
+
+                <!-- Project 4: JARVIS Desktop Voice Assistant -->
+                <div class="stark-card project-card flex flex-col justify-between rounded-xl p-6 border-cyan-500/30 group" data-category="ai">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/30 text-[10px] font-mono-stark">
+                                AI AUTOMATION
+                            </span>
+                            <button class="project-like-btn flex items-center space-x-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-red-400 hover:border-red-400 transition-all text-xs font-mono-stark" data-project="jarvis-desktop" title="Upvote this project">
+                                <span>❤️</span>
+                                <span class="project-like-count">39</span>
+                            </button>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                            JARVIS Desktop Assistant
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Voice-activated desktop controller in Python. Automates web queries, system diagnostics, audio playback, and application launches using neural speech recognition.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Python 3</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">SpeechRecognition</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">pyttsx3</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">OS Shell</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex justify-between items-center">
+                        <a href="https://github.com/07yashsharma" target="_blank" rel="noopener noreferrer" class="text-xs font-mono-stark text-cyan-400 hover:text-cyan-300 flex items-center">
+                            VIEW REPOSITORY
+                            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <span class="text-[10px] font-mono-stark text-emerald-400">DEPLOYED</span>
+                    </div>
+                </div>
+
+                <!-- Project 5: CampusSync Student Portal -->
+                <div class="stark-card project-card flex flex-col justify-between rounded-xl p-6 border-emerald-500/30 group" data-category="web">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono-stark">
+                                FULL-STACK WEB
+                            </span>
+                            <button class="project-like-btn flex items-center space-x-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:text-red-400 hover:border-red-400 transition-all text-xs font-mono-stark" data-project="campus-sync" title="Upvote this project">
+                                <span>❤️</span>
+                                <span class="project-like-count">31</span>
+                            </button>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                            CampusSync Student Portal
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Peer collaboration portal engineered for engineering students at JECRC University. Features syllabus indexing, coding project showcases, and real-time study rooms.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Node.js</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">Express</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">SQLite</span>
+                            <span class="text-[10px] font-mono-stark bg-slate-900 text-slate-400 px-2 py-0.5 rounded">REST API</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex justify-between items-center">
+                        <a href="https://github.com/07yashsharma" target="_blank" rel="noopener noreferrer" class="text-xs font-mono-stark text-emerald-400 hover:text-emerald-300 flex items-center">
+                            VIEW REPOSITORY
+                            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <span class="text-[10px] font-mono-stark text-cyan-400">JECRC CAMPUS</span>
+                    </div>
+                </div>
+
+                <!-- Callout Card: Stark Lab Terminal Mini -->
+                <div class="stark-card flex flex-col justify-center items-center text-center rounded-xl p-6 border-dashed border-cyan-500/40 bg-cyan-950/20">
+                    <div class="w-14 h-14 rounded-full bg-cyan-900/40 border border-cyan-400 flex items-center justify-center text-2xl mb-4">
+                        ⚡
+                    </div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-2">Build Together?</h3>
+                    <p class="text-slate-300 text-xs mb-6 max-w-xs">
+                        Have an ambitious robotics, AI, or software challenge? Let's connect on GitHub or uplink directly!
+                    </p>
+                    <a href="#contact" class="stark-nav-link btn-arc px-5 py-2.5 rounded text-xs font-mono-stark tracking-wider uppercase">
+                        TRANSMIT INQUIRY
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         10. EDUCATION & MILESTONES SECTION
+         ========================================================================== -->
+    <section id="education" class="py-24 relative border-t border-slate-800/60 bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-mono-stark text-xs tracking-widest text-indigo-400 uppercase">ACADEMIC PATHWAY</span>
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-black text-white mt-2">
+                    EDUCATION &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">MILESTONES</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-3 font-chakra">
+                    Building a rock-solid foundation in Computer Science and Engineering.
+                </p>
+            </div>
+
+            <!-- Timeline Cards -->
+            <div class="max-w-4xl mx-auto space-y-8 relative">
+                <!-- Center vertical line -->
+                <div class="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 via-cyan-400 to-amber-500 -translate-x-1/2 hidden sm:block"></div>
+
+                <!-- Milestone 1: JECRC University -->
+                <div class="relative sm:grid sm:grid-cols-2 sm:gap-8 items-center">
+                    <div class="sm:text-right pr-0 sm:pr-8 mb-4 sm:mb-0">
+                        <span class="px-3 py-1 rounded bg-red-950 border border-red-500/40 text-red-300 text-xs font-mono-stark inline-block mb-2">
+                            2025 - 2029 [CURRENT]
+                        </span>
+                        <h3 class="font-orbitron text-xl font-bold text-white">JECRC University, Jaipur</h3>
+                        <h4 class="font-chakra text-cyan-300 font-semibold text-sm">Bachelor of Technology (B.Tech) - 1st Year</h4>
+                    </div>
+                    <div class="stark-card p-6 rounded-xl border-red-500/30 pl-6 sm:pl-8">
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                            Specializing in Computer Science &amp; Engineering. Actively participating in robotics clubs, technical workshops, and coding challenges. Coursework covers Data Structures, Digital Logic, Applied Physics, and Problem Solving.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Milestone 2: Pre-University Senior Secondary -->
+                <div class="relative sm:grid sm:grid-cols-2 sm:gap-8 items-center">
+                    <div class="sm:order-2 sm:text-left pl-0 sm:pl-8 mb-4 sm:mb-0">
+                        <span class="px-3 py-1 rounded bg-cyan-950 border border-cyan-500/40 text-cyan-300 text-xs font-mono-stark inline-block mb-2">
+                            COMPLETED WITH DISTINCTION
+                        </span>
+                        <h3 class="font-orbitron text-xl font-bold text-white">Senior Secondary Schooling</h3>
+                        <h4 class="font-chakra text-amber-300 font-semibold text-sm">Physics, Chemistry &amp; Mathematics (PCM)</h4>
+                    </div>
+                    <div class="stark-card p-6 rounded-xl border-cyan-500/30 pr-6 sm:pr-8 sm:order-1 sm:text-right">
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                            Established core mathematical rigor and fundamental physics principles that power current robotics simulations, circuit analysis, and algorithmic logic.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Milestone 3: Certifications & Workshop Honors -->
+                <div class="relative sm:grid sm:grid-cols-2 sm:gap-8 items-center">
+                    <div class="sm:text-right pr-0 sm:pr-8 mb-4 sm:mb-0">
+                        <span class="px-3 py-1 rounded bg-amber-950 border border-amber-500/40 text-amber-300 text-xs font-mono-stark inline-block mb-2">
+                            CONTINUOUS ENHANCEMENT
+                        </span>
+                        <h3 class="font-orbitron text-xl font-bold text-white">Certifications &amp; Bootcamps</h3>
+                        <h4 class="font-chakra text-emerald-300 font-semibold text-sm">AI, Robotics &amp; Full-Stack</h4>
+                    </div>
+                    <div class="stark-card p-6 rounded-xl border-amber-500/30 pl-6 sm:pl-8">
+                        <ul class="text-slate-300 text-xs sm:text-sm space-y-1.5 list-disc list-inside">
+                            <li>Python Programming &amp; Data Structures Masterclass</li>
+                            <li>Applied Computer Vision &amp; OpenCV Workshop</li>
+                            <li>Arduino &amp; IoT Embedded Systems Certification</li>
+                            <li>Modern Web Development (React &amp; REST APIs)</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         11. STARK UPLINK (CONTACT SECTION)
+         ========================================================================== -->
+    <section id="contact" class="py-24 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-mono-stark text-xs tracking-widest text-red-500 uppercase">SECURE TRANSMISSION FREQUENCY</span>
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-black text-white mt-2">
+                    STARK <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-400 to-cyan-400">UPLINK</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-3 font-chakra">
+                    Have an internship opportunity, robotics project, or tech query? Send a message directly to Yash Sharma!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Contact Direct Coordinates -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="stark-card p-6 sm:p-8 rounded-2xl border-cyan-500/30">
+                        <h3 class="font-orbitron text-lg font-bold text-white mb-6 flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-cyan-400 mr-2.5 animate-ping"></span>
+                            Direct Transmissions
+                        </h3>
+
+                        <div class="space-y-6">
+                            <!-- Email -->
+                            <a href="mailto:shyam277007@gmail.com" class="flex items-center space-x-4 p-3 rounded-lg bg-slate-900/60 hover:bg-cyan-950/40 border border-slate-800 hover:border-cyan-500/40 transition-all group">
+                                <div class="w-10 h-10 rounded-lg bg-red-950/50 border border-red-500/40 flex items-center justify-center text-lg text-red-400 group-hover:scale-110 transition-transform">
+                                    ✉️
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono-stark text-slate-400 block">TRANSMISSION EMAIL</span>
+                                    <span class="text-sm font-chakra font-semibold text-white group-hover:text-cyan-400 transition-colors break-all">shyam277007@gmail.com</span>
+                                </div>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/in/yash-sharma-05a599432/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-4 p-3 rounded-lg bg-slate-900/60 hover:bg-cyan-950/40 border border-slate-800 hover:border-cyan-500/40 transition-all group">
+                                <div class="w-10 h-10 rounded-lg bg-blue-950/50 border border-blue-500/40 flex items-center justify-center text-lg text-blue-400 group-hover:scale-110 transition-transform">
+                                    💼
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono-stark text-slate-400 block">PROFESSIONAL NETWORK</span>
+                                    <span class="text-sm font-chakra font-semibold text-white group-hover:text-cyan-400 transition-colors">linkedin.com/in/yash-sharma-05a599432/</span>
+                                </div>
+                            </a>
+
+                            <!-- GitHub -->
+                            <a href="https://github.com/07yashsharma" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-4 p-3 rounded-lg bg-slate-900/60 hover:bg-cyan-950/40 border border-slate-800 hover:border-cyan-500/40 transition-all group">
+                                <div class="w-10 h-10 rounded-lg bg-slate-800/80 border border-slate-600 flex items-center justify-center text-lg text-white group-hover:scale-110 transition-transform">
+                                    🐙
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono-stark text-slate-400 block">OPEN-SOURCE CODE REPOSITORY</span>
+                                    <span class="text-sm font-chakra font-semibold text-white group-hover:text-cyan-400 transition-colors">github.com/07yashsharma</span>
+                                </div>
+                            </a>
+
+                            <!-- Academic Base -->
+                            <div class="flex items-center space-x-4 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                                <div class="w-10 h-10 rounded-lg bg-amber-950/50 border border-amber-500/40 flex items-center justify-center text-lg text-amber-400">
+                                    🎓
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono-stark text-slate-400 block">CAMPUS HEADQUARTERS</span>
+                                    <span class="text-sm font-chakra font-semibold text-white">JECRC University, Jaipur, India</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-Time Interactive Form -->
+                <div class="lg:col-span-7">
+                    <div class="stark-card p-6 sm:p-8 rounded-2xl border-red-500/30">
+                        <h3 class="font-orbitron text-lg font-bold text-white mb-2">
+                            Send Secure Transmission
+                        </h3>
+                        <p class="text-slate-400 text-xs mb-6 font-chakra">
+                            Data is transmitted through the encrypted Stark Protocol directly to the backend database.
+                        </p>
+
+                        <!-- Notification status banner -->
+                        <div id="contact-status" class="hidden mb-6"></div>
+
+                        <form id="stark-contact-form" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="contact-name" class="block text-xs font-mono-stark text-slate-300 mb-1.5 uppercase">
+                                        Agent / Recruiter Name *
+                                    </label>
+                                    <input type="text" id="contact-name" required placeholder="Tony Stark / Peter Parker" 
+                                           class="w-full px-4 py-3 rounded-lg bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-chakra text-sm transition-colors">
+                                </div>
+                                <div>
+                                    <label for="contact-email" class="block text-xs font-mono-stark text-slate-300 mb-1.5 uppercase">
+                                        Return Transmission Email *
+                                    </label>
+                                    <input type="email" id="contact-email" required placeholder="tony@starkindustries.com" 
+                                           class="w-full px-4 py-3 rounded-lg bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-chakra text-sm transition-colors">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="contact-subject" class="block text-xs font-mono-stark text-slate-300 mb-1.5 uppercase">
+                                    Mission Subject
+                                </label>
+                                <input type="text" id="contact-subject" placeholder="Robotics Internship / AI Collaboration / Project Inquiry" 
+                                       class="w-full px-4 py-3 rounded-lg bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-chakra text-sm transition-colors">
+                            </div>
+
+                            <div>
+                                <label for="contact-message" class="block text-xs font-mono-stark text-slate-300 mb-1.5 uppercase">
+                                    Transmission Content *
+                                </label>
+                                <textarea id="contact-message" required rows="5" placeholder="Greetings Yash, I reviewed your robotics projects and would like to discuss..." 
+                                          class="w-full px-4 py-3 rounded-lg bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-chakra text-sm transition-colors resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" id="contact-submit-btn" class="w-full btn-stark py-4 rounded-lg font-orbitron font-bold text-sm tracking-wider uppercase flex items-center justify-center transition-all group">
+                                <span class="relative z-10 flex items-center justify-center">
+                                    TRANSMIT MESSAGE TO YASH SHARMA
+                                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         12. STARK COMMAND LINE TERMINAL MODAL [~]
+         ========================================================================== -->
+    <div id="stark-terminal-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="w-full max-w-3xl rounded-xl terminal-window overflow-hidden flex flex-col h-[520px] max-h-[90vh]">
+            <!-- Terminal Titlebar -->
+            <div class="bg-slate-900 px-4 py-2.5 border-b border-cyan-500/40 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-red-500 cursor-pointer" id="terminal-close"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-mono-stark text-cyan-400 ml-2">STARK-JARVIS-OS // YASH SHARMA CONSOLE</span>
+                </div>
+                <span class="text-[10px] font-mono-stark text-slate-400">PRESS ESC OR TYPE 'EXIT' TO CLOSE</span>
+            </div>
+
+            <!-- Terminal Output Log -->
+            <div id="terminal-output" class="flex-1 p-4 font-mono-stark text-xs overflow-y-auto space-y-1 bg-slate-950/90 text-slate-200">
+                <!-- Populated dynamically by terminal.js -->
+            </div>
+
+            <!-- Terminal Command Input Line -->
+            <div class="p-3 bg-slate-900/90 border-t border-cyan-500/30 flex items-center space-x-2">
+                <span class="font-mono-stark text-xs text-amber-400 font-bold">STARK-OS@YashSharma:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" 
+                       placeholder="Type 'help' for command directory..." 
+                       class="flex-1 bg-transparent border-none text-cyan-300 font-mono-stark text-xs focus:outline-none">
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         13. FOOTER
+         ========================================================================== -->
+    <footer class="py-12 border-t border-slate-800/80 bg-slate-950 font-mono-stark text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div>
+                <p class="text-white font-orbitron font-bold tracking-wider">
+                    YASH SHARMA <span class="text-red-500">//</span> 1ST YEAR B.TECH @ JECRC UNIVERSITY
+                </p>
+                <p class="text-slate-500 text-[11px] mt-1">
+                    Inspired by Spider-Man &amp; Iron Man Stark Technologies. Built with Python, Flask, SQLite &amp; Modern Web APIs.
+                </p>
+            </div>
+
+            <!-- Functional Keys Quick Guide -->
+            <div class="flex flex-wrap items-center justify-center gap-2 text-[10px]">
+                <span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">SHORTCUTS:</span>
+                <span class="px-2 py-1 rounded bg-slate-900 border border-cyan-500/30 text-cyan-400">[~] TERMINAL</span>
+                <span class="px-2 py-1 rounded bg-slate-900 border border-red-500/30 text-red-400">[S] WEB SWING</span>
+                <span class="px-2 py-1 rounded bg-slate-900 border border-amber-500/30 text-amber-400">[M] AUDIO MUTE</span>
+                <span class="px-2 py-1 rounded bg-slate-900 border border-emerald-500/30 text-emerald-400">[A] OVERCHARGE</span>
+                <span class="px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300">[1-6] JUMP</span>
+            </div>
+
+            <!-- Back to top web-sling button -->
+            <div>
+                <a href="#hero" class="stark-nav-link text-cyan-400 hover:text-cyan-300 flex items-center justify-center space-x-1.5">
+                    <span>BACK TO TOP</span>
+                    <span>🕸️</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         14. JAVASCRIPT ASSETS
+         ========================================================================== -->
+    <script src="/static/js/audio.js"></script>
+    <script src="/static/js/spiderman.js"></script>
+    <script src="/static/js/ironman.js"></script>
+    <script src="/static/js/terminal.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

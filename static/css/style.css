@@ -1,0 +1,441 @@
+/* ==========================================================================
+   YASH SHARMA PORTFOLIO - SPIDER-MAN & IRON MAN (STARK TECH) THEME
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --spidey-red: #e23636;
+    --spidey-red-glow: rgba(226, 54, 54, 0.4);
+    --spidey-blue: #0e1b38;
+    --stark-gold: #f5af19;
+    --stark-gold-glow: rgba(245, 175, 25, 0.35);
+    --arc-cyan: #00f2fe;
+    --arc-cyan-glow: rgba(0, 242, 254, 0.45);
+    --hud-dark: #080c16;
+    --hud-card: rgba(15, 23, 42, 0.85);
+    --hud-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--hud-dark);
+    color: #f1f5f9;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    selection-background-color: var(--spidey-red);
+    selection-color: #ffffff;
+}
+
+::selection {
+    background: var(--spidey-red);
+    color: #ffffff;
+}
+
+/* Custom Marvel Scrollbar */
+::-webkit-scrollbar {
+    width: 9px;
+}
+::-webkit-scrollbar-track {
+    background: #080c16;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #e23636 0%, #f5af19 100%);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff1e27 0%, #ffc107 100%);
+}
+
+/* Spider-Web & Stark Grid Background Pattern */
+.marvel-bg-pattern {
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(226, 54, 54, 0.06) 0%, transparent 60%),
+        linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+/* Font Families */
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+.font-chakra {
+    font-family: 'Chakra Petch', sans-serif;
+}
+.font-mono-stark {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Glow Utilities */
+.glow-spidey {
+    box-shadow: 0 0 20px var(--spidey-red-glow);
+}
+.glow-stark {
+    box-shadow: 0 0 20px var(--stark-gold-glow);
+}
+.glow-arc {
+    box-shadow: 0 0 25px var(--arc-cyan-glow);
+}
+.text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.7);
+}
+.text-glow-red {
+    text-shadow: 0 0 10px rgba(226, 54, 54, 0.7);
+}
+.text-glow-gold {
+    text-shadow: 0 0 10px rgba(245, 175, 25, 0.7);
+}
+
+/* ==========================================================================
+   IRON MAN PRELOADER & BOOT SEQUENCE
+   ========================================================================== */
+
+#ironman-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: radial-gradient(circle at center, #0e1726 0%, #05070d 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arc-reactor-loader {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.arc-core {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #ffffff 10%, #00f2fe 60%, #0284c7 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 35px #00f2fe, inset 0 0 15px #ffffff;
+    z-index: 2;
+    animation: arcPulse 1.8s infinite alternate ease-in-out;
+}
+
+.arc-ring-outer {
+    position: absolute;
+    inset: 0;
+    border: 3px dashed #00f2fe;
+    border-radius: 50%;
+    animation: spinClockwise 12s linear infinite;
+    opacity: 0.85;
+}
+
+.arc-ring-inner {
+    position: absolute;
+    inset: 16px;
+    border: 2px dotted #f5af19;
+    border-radius: 50%;
+    animation: spinCounterClockwise 8s linear infinite;
+    opacity: 0.75;
+}
+
+.arc-target-reticle {
+    position: absolute;
+    inset: -12px;
+    border: 1px solid rgba(0, 242, 254, 0.3);
+    border-radius: 50%;
+}
+
+@keyframes spinClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes arcPulse {
+    0% {
+        transform: scale(0.92);
+        box-shadow: 0 0 25px #00f2fe, inset 0 0 10px #ffffff;
+    }
+    100% {
+        transform: scale(1.08);
+        box-shadow: 0 0 50px #00f2fe, 0 0 80px rgba(0, 242, 254, 0.4), inset 0 0 20px #ffffff;
+    }
+}
+
+/* ==========================================================================
+   IRON MAN REPULSOR PAGE TRANSITION SWEEP
+   ========================================================================== */
+
+#ironman-transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99990;
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+}
+
+#ironman-transition-overlay.active {
+    display: block;
+    opacity: 1;
+    animation: repulsorSweep 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes repulsorSweep {
+    0% {
+        opacity: 0;
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.9), rgba(245, 175, 25, 0.95), #ffffff, transparent);
+    }
+    45% {
+        opacity: 1;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(0, 242, 254, 0.85) 40%, rgba(226, 54, 54, 0.9) 100%);
+    }
+    100% {
+        opacity: 0;
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+        background: linear-gradient(90deg, transparent, rgba(245, 175, 25, 0.8), rgba(0, 242, 254, 0.8), transparent);
+    }
+}
+
+/* ==========================================================================
+   SPIDER-SENSE NOTIFICATION HUD
+   ========================================================================== */
+
+#spidersense-hud {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 8px 24px;
+    background: rgba(226, 54, 54, 0.9);
+    border: 2px solid #f5af19;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border-radius: 9999px;
+    box-shadow: 0 0 25px rgba(226, 54, 54, 0.8), 0 0 15px rgba(245, 175, 25, 0.6);
+    transition: all 0.3s ease;
+}
+
+.pulse-glow {
+    animation: spiderSensePulse 0.4s infinite alternate;
+}
+
+@keyframes spiderSensePulse {
+    0% {
+        box-shadow: 0 0 15px rgba(226, 54, 54, 0.8), 0 0 10px rgba(245, 175, 25, 0.6);
+        transform: translateX(-50%) scale(0.98);
+    }
+    100% {
+        box-shadow: 0 0 35px rgba(226, 54, 54, 1), 0 0 25px rgba(245, 175, 25, 0.9);
+        transform: translateX(-50%) scale(1.04);
+    }
+}
+
+/* ==========================================================================
+   INTERACTIVE ARC REACTOR WIDGET
+   ========================================================================== */
+
+.interactive-arc-reactor {
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    position: relative;
+}
+
+.interactive-arc-reactor:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 12px #00f2fe);
+}
+
+.interactive-arc-reactor.overcharged {
+    animation: reactorOvercharge 0.8s ease-out;
+}
+
+@keyframes reactorOvercharge {
+    0% { transform: scale(1); filter: drop-shadow(0 0 15px #00f2fe); }
+    50% { transform: scale(1.35) rotate(180deg); filter: drop-shadow(0 0 35px #ffffff) drop-shadow(0 0 60px #f5af19); }
+    100% { transform: scale(1) rotate(360deg); filter: drop-shadow(0 0 15px #00f2fe); }
+}
+
+.arc-reactor-ripple {
+    position: absolute;
+    inset: -20px;
+    border: 3px solid #00f2fe;
+    border-radius: 50%;
+    animation: rippleExpand 1s cubic-bezier(0, 0.2, 0.8, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes rippleExpand {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ==========================================================================
+   STARK HUD NAVBAR & CARDS
+   ========================================================================== */
+
+.stark-glass {
+    background: rgba(10, 16, 30, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(0, 242, 254, 0.18);
+}
+
+.stark-card {
+    background: rgba(13, 22, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stark-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #e23636, #f5af19, #00f2fe);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.stark-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 12px 30px -10px rgba(0, 242, 254, 0.25);
+}
+
+.stark-card:hover::before {
+    opacity: 1;
+}
+
+.stark-nav-link {
+    position: relative;
+    transition: all 0.25s ease;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+}
+
+.stark-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #e23636, #00f2fe);
+    transition: width 0.25s ease;
+}
+
+.stark-nav-link:hover::after,
+.stark-nav-link.active::after {
+    width: 100%;
+}
+
+.stark-nav-link.active {
+    color: #00f2fe;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+/* ==========================================================================
+   BUTTONS & MARVEL ACCENTS
+   ========================================================================== */
+
+.btn-spidey {
+    background: linear-gradient(135deg, #e23636 0%, #b11313 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(226, 54, 54, 0.4);
+    transition: all 0.25s ease;
+}
+
+.btn-spidey:hover {
+    box-shadow: 0 6px 25px rgba(226, 54, 54, 0.7);
+    transform: translateY(-2px);
+}
+
+.btn-stark {
+    background: linear-gradient(135deg, #f5af19 0%, #e52d27 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(245, 175, 25, 0.4);
+    transition: all 0.25s ease;
+}
+
+.btn-stark:hover {
+    box-shadow: 0 6px 25px rgba(245, 175, 25, 0.7);
+    transform: translateY(-2px);
+}
+
+.btn-arc {
+    background: rgba(0, 242, 254, 0.12);
+    border: 1px solid #00f2fe;
+    color: #00f2fe;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+    transition: all 0.25s ease;
+}
+
+.btn-arc:hover {
+    background: #00f2fe;
+    color: #05070d;
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   STARK TERMINAL MODAL
+   ========================================================================== */
+
+#stark-terminal-modal {
+    transition: opacity 0.3s ease;
+}
+
+.terminal-window {
+    background: rgba(5, 10, 20, 0.95);
+    border: 1px solid #00f2fe;
+    box-shadow: 0 0 35px rgba(0, 242, 254, 0.35), inset 0 0 15px rgba(0, 242, 254, 0.1);
+}
+
+.terminal-scanlines {
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 6px 100%;
+    pointer-events: none;
+}
+
+/* Matrix Mode Easter Egg */
+body.matrix-mode {
+    filter: hue-rotate(90deg) brightness(1.2);
+}
+
+/* Spider-Man Web Corner Hanging Decoration */
+.hanging-spidey {
+    animation: pendulumSwing 4s ease-in-out infinite alternate;
+    transform-origin: top center;
+}
+
+@keyframes pendulumSwing {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
+}
