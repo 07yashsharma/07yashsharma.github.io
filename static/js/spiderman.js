@@ -39,8 +39,8 @@ class SpiderManEngine {
 
         // Bind interactive web shooter to clicks
         document.addEventListener('click', (e) => {
-            // Only shoot if not clicking an interactive form or button
-            if (this.webShooterActive && !['BUTTON', 'INPUT', 'TEXTAREA', 'A'].includes(e.target.tagName)) {
+            // Only shoot if not clicking an interactive form, button, or botpress chatbot widget
+            if (this.webShooterActive && !['BUTTON', 'INPUT', 'TEXTAREA', 'A'].includes(e.target.tagName) && !e.target.closest('[class*="bp-"], iframe, #bp-web-widget')) {
                 this.shootWeb(e.clientX, e.clientY);
             }
         });
