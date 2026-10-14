@@ -6,7 +6,10 @@ import sqlite3
 import os
 from datetime import datetime
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'portfolio.db')
+if os.environ.get('VERCEL'):
+    DB_PATH = '/tmp/portfolio.db'
+else:
+    DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'portfolio.db')
 
 def get_connection():
     conn = sqlite3.connect(DB_PATH)
