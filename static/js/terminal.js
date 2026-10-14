@@ -38,10 +38,14 @@ class StarkTerminal {
 
             // Keyboard shortcut `~` or `T`
             document.addEventListener('keydown', (e) => {
+                // Skip shortcuts if chatting with bot or typing in an input
+                if (window.isBotpressActive && window.isBotpressActive(e)) return;
+                if (['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.target.isContentEditable) return;
+
                 if (e.key === '`' || e.key === '~') {
                     e.preventDefault();
                     this.toggle();
-                } else if (e.key.toLowerCase() === 't' && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+                } else if (e.key.toLowerCase() === 't') {
                     e.preventDefault();
                     this.toggle();
                 } else if (e.key === 'Escape' && this.isOpen) {

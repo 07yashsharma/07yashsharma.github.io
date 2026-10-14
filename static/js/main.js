@@ -259,10 +259,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Botpress Chat Detection - Disable website shortcuts while chatting with bot
+    window.isBotpressChatOpen = false;
+
+    window.addEventListener('message', (event) => {
+        try {
+            if (!event.data) return;
+            const str = typeof event.data === 'string' ? event.data : JSON.stringify(event.data);
+            if (str.includes('webchat:opened') || str.includes('"type":"open"') || str.includes('"action":"show"')) {
+                window.isBotpressChatOpen = true;
+            } else if (str.includes('webchat:closed') || str.includes('"type":"close"') || str.includes('"action":"hide"')) {
+                window.isBotpressChatOpen = false;
+            }
+        } catch (err) {}
+    });
+
+    function initBotpressState() {
+        if (window.botpress && typeof window.botpress.on === 'function') {
+            window.botpress.on('webchat:opened', () => { window.isBotpressChatOpen = true; });
+            window.botpress.on('webchat:closed', () => { window.isBotpressChatOpen = false; });
+            window.botpress.on('webchat:visibility', (state) => {
+                if (state && typeof state.value !== 'undefined') {
+                    window.isBotpressChatOpen = !!state.value;
+                }
+            });
+        } else {
+            setTimeout(initBotpressState, 600);
+        }
+    }
+    initBotpressState();
+
+    window.isBotpressActive = function(e) {
+        if (window.isBotpressChatOpen) return true;
+
+        if (e) {
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.target.isContentEditable) return true;
+            if (e.target.closest && e.target.closest('[class*="bp-"], [id*="bp-"], iframe, .bp-widget-container')) return true;
+        }
+
+        const active = document.activeElement;
+        if (active && (active.tagName === 'IFRAME' || ['INPUT', 'TEXTAREA'].includes(active.tagName) || active.isContentEditable)) {
+            return true;
+        }
+
+        const bpElements = document.querySelectorAll('iframe[src*="botpress"], iframe[src*="bpcontent"], iframe[id*="bp"], [class*="bp-widget"], [id*="bp-web-widget"], [class*="bpWebchat"]');
+        for (const el of bpElements) {
+            const rect = el.getBoundingClientRect();
+            if (rect.width > 200 && rect.height > 200) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
     // 9. Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
-        // Skip if typing in an input
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+        // Skip shortcuts if chatting with the bot or typing in an input
+        if (window.isBotpressActive && window.isBotpressActive(e)) return;
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.target.isContentEditable) return;
 
         const key = e.key.toLowerCase();
         if (key === 's') {
